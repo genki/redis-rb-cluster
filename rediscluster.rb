@@ -49,7 +49,9 @@ class RedisCluster
 
   def get_redis_link(host,port)
     timeout = @opt[:timeout] or RedisClusterDefaultTimeout
-    Redis.new(:host => host, :port => port, :timeout => timeout)
+    @opt[:host] = host
+    @opt[:port] = port
+    Redis.new @opt
   end
 
   # Contact the startup nodes and try to fetch the hash slots -> instances
